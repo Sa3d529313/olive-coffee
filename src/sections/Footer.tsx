@@ -46,7 +46,9 @@ export const Footer = memo(function Footer() {
               <h4>زورونا</h4>
               <a href={MAPS_URL} target="_blank" rel="noreferrer">صوفين، قلقيلية</a>
               <span>كل يوم ٨ص – ٢ل</span>
-              <a href={`tel:+${PHONE_INTL}`} dir="ltr">{PHONE_DISPLAY}</a>
+              <a href={`tel:+${PHONE_INTL}`}>
+                <bdi dir="ltr">{PHONE_DISPLAY}</bdi>
+              </a>
             </div>
             <div>
               <h4>تابعونا</h4>

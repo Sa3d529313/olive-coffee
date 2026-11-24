@@ -100,7 +100,7 @@ export const CoffeeHouse = ({ className }: { className?: string }) => <Lettering
 /** "Coffee" on its own (images/coffee.png, 971×266), same letters as in Coffee House. */
 export const CoffeeWord = ({ className }: { className?: string }) => <Lettering file="coffee.png" ratio={971 / 266} label="Coffee" className={className} />
 
-/** The shop's awning: "Olive" + a leaf, repeated, sliding slowly. Two identical halves loop seamlessly;
+/** The shop's awning: "Olive" + a leaf (with its centre vein, like the leaf on the i), repeated, sliding slowly. Two identical halves loop seamlessly;
  *  each half must be wider than the widest screen (36 items ≈ 3800px), or the end shows. */
 export function Awning({ className, count = 36 }: { className?: string; count?: number }) {
   const half = Array.from({ length: count })
@@ -114,6 +114,7 @@ export function Awning({ className, count = 36 }: { className?: string; count?: 
                 <Wordmark />
                 <svg viewBox="0 0 20 32" className="awning__leaf">
                   <path d="M10 31C3 23 2 11 10 1c8 10 7 22 0 30Z" />
+                  <path className="awning__vein" d="M10 27.5V6" />
                 </svg>
               </span>
             ))}

@@ -189,7 +189,9 @@ em { font-style: normal; }
 .awning__track { display: flex; width: max-content; height: 100%; animation: awning 170s linear infinite; /* long halves, same calm speed */ will-change: transform; }
 .awning__group { display: flex; flex: none; }
 .awning__item { display: inline-flex; align-items: center; gap: 6px; padding-right: 54px; font-size: 18px; }
-.awning__leaf { width: 9px; fill: currentColor; transform: rotate(35deg); opacity: 0.9; }
+.awning__leaf { width: 10px; fill: currentColor; transform: rotate(35deg); opacity: 0.9; }
+/* The centre vein, cut in the band's own colour, like the leaf on the i of the wordmark. */
+.awning__vein { fill: none; stroke: var(--frame); stroke-width: 2.2; stroke-linecap: round; }
 @keyframes awning { to { transform: translateX(-50%); } }
 
 /* ───────────────────────── Loader: the glass doors ───────────────────────── */
@@ -217,6 +219,7 @@ em { font-style: normal; }
 .seam { position: absolute; left: 50%; z-index: 1; width: 10px; margin-left: -5px; background: var(--frame); will-change: transform; }
 .seam--top { top: 0; }
 .seam--bottom { bottom: 0; }
+.seam--mid { top: 0; }
 .door__handle { position: absolute; top: 46%; width: 6px; height: 120px; border-radius: 3px; background: var(--frame); }
 .door--left .door__handle { right: 22px; }
 .door--right .door__handle { left: 22px; }
@@ -302,7 +305,7 @@ em { font-style: normal; }
   grid-template-columns: 1fr var(--cup) 1fr;
   align-items: end; /* Olive and Coffee share a baseline */
   width: 100%;
-  margin-top: 22vh; /* words sit across the middle of the cup, which is low in the photo */
+  margin-top: 15vh; /* words sit just above the middle of the cup, which is low in the photo */
   /* 'Coffee' is set in Fraunces with the soft corners off and big optical size: slanted top
      serifs and sturdy strokes, the same family of shapes as the Olive wordmark. */
   font-family: var(--font-serif);
@@ -582,6 +585,11 @@ em { font-style: normal; }
   .menu__arch > .tree-mark { width: 90px; top: 22px; }
   .menu__arch.has-photo { aspect-ratio: 4 / 3.6; padding-top: 0; }
   .menu__row.has-thumb { grid-template-columns: auto auto 1fr auto; grid-template-areas: 'thumb name dots price' 'thumb desc desc desc'; column-gap: 14px; }
+  /* Phones: the photo opens inside the tapped dish instead of in the arch above the list. */
+  .menu__row { cursor: pointer; }
+  .menu__row.has-thumb { grid-template-areas: 'thumb name dots price' 'thumb desc desc desc' 'open open open open'; }
+  .menu__open { grid-area: open; overflow: hidden; }
+  .menu__open img { display: block; width: 100%; aspect-ratio: 4 / 3; margin-top: 14px; border-radius: 18px; object-fit: cover; }
   .menu__row.has-thumb .menu__thumb { display: block; grid-area: thumb; align-self: start; width: 64px; height: 64px; border-radius: 14px; object-fit: cover; }
 }
 @media (max-width: 770px) {
@@ -594,7 +602,7 @@ em { font-style: normal; }
   /* Portrait photo (hero-mobile.jpg): cup in the lower half, clean wall above for the words. */
   .hero__img { background-image: var(--hero-m); background-position: center 100%; }
   .hero__shade { background: linear-gradient(180deg, rgba(0, 0, 0, 0.12), transparent 40%, transparent 60%, rgba(0, 0, 0, 0.45)); }
-  .hero__title { grid-template-columns: 1fr; justify-items: center; row-gap: 0.06em; margin-top: -22vh; font-size: clamp(56px, 19vw, 110px); }
+  .hero__title { grid-template-columns: 1fr; justify-items: center; row-gap: 0.06em; margin-top: -27vh; font-size: clamp(56px, 19vw, 110px); }
   .hero__gap { display: none; }
   .hero__word--left, .hero__word--right { justify-self: center; }
   .hero__accent { position: static; display: block; text-align: center; font-size: 0.3em; margin-top: 0.4em; }

@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { MENU } from '../lib/menu'
 import { MENU_PHOTOS } from '../lib/menuPhotos'
@@ -7,6 +7,20 @@ import { Button, En, Reveal, TreeMark } from '../components/ui'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const photoOf = (name: string) => MENU_PHOTOS[name] ?? null
+
+// Phones and tablets (the one-column layout): the arch sits above the list, so a photo shown
+// there is off-screen when you tap a dish further down. There the photo opens inside the row.
+const PHONE = '(max-width: 960px)'
+function usePhone() {
+  const [phone, setPhone] = useState(() => window.matchMedia(PHONE).matches)
+  useEffect(() => {
+    const mq = window.matchMedia(PHONE)
+    const on = () => setPhone(mq.matches)
+    mq.addEventListener('change', on)
+    return () => mq.removeEventListener('change', on)
+  }, [])
+  return phone
+}
 
 // The leaf that sits beside every heading on Olive's printed menu.
 function Leaf({ className }: { className?: string }) {
@@ -24,11 +38,15 @@ export const Menu = memo(function Menu() {
   const [id, setId] = useState(MENU[0].id)
   const section = MENU.find((s) => s.id === id)!
   const [active, setActive] = useState(section.items[0].name)
-  const photo = photoOf(active)
+  // Phone: which dish is opened by a tap (none at first; tap again to close).
+  const [open, setOpen] = useState<string | null>(null)
+  const phone = usePhone()
+  const photo = phone ? null : photoOf(active)
 
   const pick = (sid: string) => {
     setId(sid)
     setActive(MENU.find((s) => s.id === sid)!.items[0].name)
+    setOpen(null)
   }
 
   return (
@@ -104,14 +122,16 @@ export const Menu = memo(function Menu() {
             >
               {section.items.map((item) => {
                 const thumb = photoOf(item.name)
+                const opened = phone && open === item.name && !!thumb
                 return (
                   <motion.li
                     key={item.name}
-                    className={`menu__row ${item.name === active ? 'is-active' : ''} ${thumb ? 'has-thumb' : ''}`}
+                    className={`menu__row ${(phone ? opened : item.name === active) ? 'is-active' : ''} ${thumb ? 'has-thumb' : ''}`}
                     variants={{ hide: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0 } }}
                     transition={{ duration: 0.7, ease: EASE }}
-                    onMouseEnter={() => setActive(item.name)}
-                    onClick={() => setActive(item.name)}
+                    onMouseEnter={() => !phone && setActive(item.name)}
+                    onClick={() => (phone ? setOpen(open === item.name ? null : item.name) : setActive(item.name))}
+                    aria-expanded={phone && thumb ? opened : undefined}
                   >
                     {thumb && <img className="menu__thumb" src={thumb} alt="" loading="lazy" />}
                     <h4 className="menu__name">{item.name}</h4>
@@ -121,6 +141,19 @@ export const Menu = memo(function Menu() {
                       <small>₪</small>
                     </span>
                     <p className="menu__desc">{item.desc}</p>
+                    <AnimatePresence initial={false}>
+                      {opened && (
+                        <motion.div
+                          className="menu__open"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.55, ease: EASE }}
+                        >
+                          <img src={thumb!} alt={item.name} />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </motion.li>
                 )
               })}
