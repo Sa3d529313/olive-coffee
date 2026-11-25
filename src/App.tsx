@@ -3,7 +3,6 @@ import { initSmoothScroll, scrollToTarget, ScrollTrigger } from './lib/scroll'
 import { arrivalHash, currentPage, shouldPlayIntro } from './lib/pages'
 import { Preloader } from './components/Preloader'
 import { Nav } from './components/Nav'
-import { Cursor } from './components/Cursor'
 import { Hero } from './sections/Hero'
 import { Moments } from './sections/Moments'
 import { Menu } from './sections/Menu'
@@ -52,7 +51,6 @@ export default function App() {
         {page === 'visit' && <Visit />}
       </main>
       <Footer />
-      <Cursor />
       <div className="grain" aria-hidden="true" />
     </>
   )
