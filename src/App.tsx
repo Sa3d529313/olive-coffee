@@ -9,6 +9,7 @@ import { Menu } from './sections/Menu'
 import { Signature } from './sections/Signature'
 import { Place } from './sections/Place'
 import { Visit } from './sections/Visit'
+import { Cursor } from './components/Cursor'
 import { Footer } from './sections/Footer'
 
 const page = currentPage()
@@ -51,6 +52,7 @@ export default function App() {
         {page === 'visit' && <Visit />}
       </main>
       <Footer />
+      <Cursor />
       <div className="grain" aria-hidden="true" />
     </>
   )

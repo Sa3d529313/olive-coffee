@@ -627,3 +627,28 @@ em { font-style: normal; }
   .awning__track, .grain, .sig__sticker svg { animation: none; }
 }
 
+
+/* ───────────────────────── Lens cursor ───────────────────────── */
+.has-lens-cursor, .has-lens-cursor * { cursor: none !important; }
+.lens-cursor { position: fixed; top: 0; left: 0; z-index: 120; /* above the loader too */ pointer-events: none; opacity: 0; transition: opacity 0.3s; will-change: transform; }
+.lens-visible .lens-cursor { opacity: 1; }
+/* A small green dot with a cream ring, so it reads on cream, dark green and photos. */
+.lens-cursor__dot {
+  display: grid;
+  place-items: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 1.5px var(--cream);
+  color: #fff;
+  transition: width 0.5s var(--ease-out), height 0.5s var(--ease-out), background 0.4s, scale 0.3s var(--ease-out);
+}
+/* The arrow points left (Arabic reading direction); right over the English header. */
+.lens-cursor svg { width: 18px; opacity: 0; transform: scale(0.4) scaleX(-1) rotate(-45deg); transition: opacity 0.3s, transform 0.5s var(--ease-out); }
+.lens-cursor.is-ltr svg { transform: scale(0.4) rotate(-45deg); }
+.lens-cursor.is-hover .lens-cursor__dot { width: 58px; height: 58px; background: var(--kraft); }
+.lens-cursor.is-hover svg { opacity: 1; transform: scaleX(-1); }
+.lens-cursor.is-hover.is-ltr svg { transform: none; }
+.lens-cursor.is-down .lens-cursor__dot { scale: 0.85; }
+@media (hover: none) { .lens-cursor { display: none; } }
