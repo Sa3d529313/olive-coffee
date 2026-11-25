@@ -2,11 +2,13 @@ import { useEffect, useRef } from 'react'
 import { gsap } from '../lib/scroll'
 
 const CLICKABLE = 'a, button, [role="tab"], label, input, select, textarea, [data-cursor]'
+const PILL = '.btn' // the rounded pill buttons: Order now, زورونا, شوف المنيو…
 
 // "Lens": a small green dot (with a thin cream ring so it shows on cream, green and photos)
-// that follows the mouse with a light glide. Over anything clickable it opens into a warm kraft
+// that follows the mouse with a light glide. Over a pill button it opens into a warm kraft
 // circle with an arrow inside, pointing the way the site reads (left in Arabic, right in the
-// English header). Mouse/trackpad only; touch screens keep their own behaviour.
+// English header). Over other links it shrinks to a tiny kraft dot instead.
+// Mouse/trackpad only; touch screens keep their own behaviour.
 export function Cursor() {
   const lens = useRef<HTMLDivElement>(null)
 
@@ -30,10 +32,14 @@ export function Cursor() {
       }
       x(e.clientX)
       y(e.clientY)
+      // Pill buttons get the full lens with the arrow; every other clickable thing (header and
+      // footer links, menu tabs…) only gets a tiny warm dot, so the text under it stays readable.
       const target = e.target as HTMLElement
-      const hit = target.closest(CLICKABLE)
-      el.classList.toggle('is-hover', !!hit)
-      if (hit) el.classList.toggle('is-ltr', hit.closest('[dir]')?.getAttribute('dir') === 'ltr')
+      const pill = target.closest(PILL)
+      const link = !pill && !!target.closest(CLICKABLE)
+      el.classList.toggle('is-hover', !!pill)
+      el.classList.toggle('is-link', link)
+      if (pill) el.classList.toggle('is-ltr', pill.closest('[dir]')?.getAttribute('dir') === 'ltr')
     }
     const down = () => el.classList.add('is-down')
     const up = () => el.classList.remove('is-down')

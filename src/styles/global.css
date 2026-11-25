@@ -650,5 +650,7 @@ em { font-style: normal; }
 .lens-cursor.is-hover .lens-cursor__dot { width: 58px; height: 58px; background: var(--kraft); }
 .lens-cursor.is-hover svg { opacity: 1; transform: scaleX(-1); }
 .lens-cursor.is-hover.is-ltr svg { transform: none; }
+/* Text links (header, footer, menu tabs): shrink to a tiny warm dot so nothing gets covered. */
+.lens-cursor.is-link .lens-cursor__dot { width: 6px; height: 6px; background: var(--kraft); box-shadow: 0 0 0 1px var(--cream); }
 .lens-cursor.is-down .lens-cursor__dot { scale: 0.85; }
 @media (hover: none) { .lens-cursor { display: none; } }
