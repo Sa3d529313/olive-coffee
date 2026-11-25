@@ -100,6 +100,10 @@ export const CoffeeHouse = ({ className }: { className?: string }) => <Lettering
 /** "Coffee" on its own (images/coffee.png, 971×266), same letters as in Coffee House. */
 export const CoffeeWord = ({ className }: { className?: string }) => <Lettering file="coffee.png" ratio={971 / 266} label="Coffee" className={className} />
 
+/** اوليف as written on the shop sign (images/arabic-olive.png, 1583×701): traced from a photo of the sign so the
+ *  real letter curves are kept, edges smoothed, ل / dots / leaf fixed by hand, vein added to the leaf. */
+export const ArabicWordmark = ({ className }: { className?: string }) => <Lettering file="arabic-olive.png" ratio={1583 / 701} label="أوليف" className={className} />
+
 /** The shop's awning: "Olive" + a leaf (with its centre vein, like the leaf on the i), repeated, sliding slowly. Two identical halves loop seamlessly;
  *  each half must be wider than the widest screen (36 items ≈ 3800px), or the end shows. */
 export function Awning({ className, count = 36 }: { className?: string; count?: number }) {

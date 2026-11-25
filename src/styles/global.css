@@ -535,7 +535,10 @@ em { font-style: normal; }
 .footer__cols a, .footer__cols span { display: block; padding: 4px 0; color: rgba(244, 238, 226, 0.82); transition: color 0.3s; }
 .footer__cols a:hover { color: #fff; }
 .footer__brand { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin: 0 0 clamp(44px, 6vw, 90px); padding-bottom: clamp(28px, 4vw, 56px); border-bottom: 1px solid rgba(244, 238, 226, 0.14); line-height: 1; }
-.footer__brand > span:first-child { font-weight: 500; font-size: clamp(90px, 19vw, 330px); color: var(--cream); line-height: 1.1; }
+/* اوليف from the shop sign; align-items: baseline would line up its bottom (the dots) with Olive. */
+.footer__brand .footer__ar { font-size: clamp(76px, 14vw, 250px); color: var(--cream); }
+/* Side by side: sit اوليف's main line on Olive's baseline and let the ي dots hang below it. */
+@media (min-width: 771px) { .footer__brand .footer__ar { margin-bottom: -0.18em; } }
 .footer__brand .footer__wm { font-size: clamp(56px, 10vw, 170px); color: var(--sage); }
 /* ── Obzervo credit bar (Obzervo's standard snippet; brand accent = Olive sage) ── */
 .obz-bar {

@@ -2,7 +2,7 @@ import { memo, type MouseEvent } from 'react'
 import { scrollToTarget } from '../lib/scroll'
 import { INSTAGRAM_URL, MAPS_URL, ORDER_APP, ORDER_URL, PHONE_DISPLAY, PHONE_INTL, img, waLink } from '../lib/brand'
 import { currentPage, pageUrl, type Page } from '../lib/pages'
-import { Button, En, Wordmark } from '../components/ui'
+import { ArabicWordmark, Button, En, Wordmark } from '../components/ui'
 import { Flow } from '../components/Flow'
 
 const here = currentPage()
@@ -20,7 +20,7 @@ export const Footer = memo(function Footer() {
       <Flow tone="forest" speed={0.1} />
       <div className="container">
         <div className="footer__brand" aria-hidden="true">
-          <span>أوليف</span>
+          <ArabicWordmark className="footer__ar" />
           <Wordmark className="footer__wm" />
         </div>
 
